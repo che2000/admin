@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="root">
+        <button @click="getMovieData">请求电影数据</button>
+        <ul>
+            <li v-for="item in list" :key="item.id">{{item.title}}</li>
+        </ul>
+    </div>
+</body>
+<script src="jquery.min.js"></script>
+<script src="vue.js"></script>
+<script>
+    /**
+     *
+     */
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            list: []
+        },
+        methods: {
+            getMovieData () {
+                var _this = this;
+                $.ajax({
+                    type: "get",
+                    url: "http://localhost:3000/api/movies",
+                    success: function(data){
+                        console.log(data)
+                        _this.list = data
+                    }
+                })
+            }
+        }
+    })
+
+</script>
+</html>
